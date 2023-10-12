@@ -1,0 +1,64 @@
+:root {
+  --light-blue: #9cd5f3;
+  --dark-blue: #034893;
+  --mid-blue: #0097da;
+}
+
+/* Side NavBar Styling */
+
+.side-navbar {
+  background: var(--dark-blue);
+  width: 248px;
+  padding: 16px;
+  box-sizing: content-box;
+  height: 100vh;
+  position: fixed;
+}
+
+.sidebar hr {
+  color: white;
+}
+
+img.logo {
+  filter: invert(100%);
+}
+
+.sidebar a{
+    color:white;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.15s ease-in;
+    width:100%;
+    display: block;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.sidebar a:not(.my-link):hover {
+  color: var(--light-blue) !important;
+}
+
+.my-link {
+    background-color:aliceblue;
+    color: var(--dark-blue) !important;
+}
+
+/* Mobile navbar styling */
+
+.mob-navbar{
+    background-color: var(--dark-blue);
+    
+}
+.navbar{
+  transition: all 0.4s linear;
+
+}
+
+.mob-navbar a{
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.15s ease-in;
+    color:white;
+
+}

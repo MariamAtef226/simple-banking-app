@@ -1,10 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { Sidebar } from "./Sidebar";
+import { MobileNavbar } from "./MobileNavbar";
 
 export default function Layout() {
   return (
     <>
-      <h1>This is the Layout Route</h1>
+      <Sidebar/>
+      <MobileNavbar />
       <Outlet />
     </>
   );

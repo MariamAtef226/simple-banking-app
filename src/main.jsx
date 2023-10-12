@@ -1,5 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css";
+import "./scripts/script.js"
+
 import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Layout from "./components/Layout";
