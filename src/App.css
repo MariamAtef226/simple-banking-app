@@ -73,11 +73,12 @@ img.logo {
 }
 
 /* home page styling */
+h1{
+  color:var(--dark-blue);
+}
 
 .home h1{
-  color:var(--dark-blue);
   font-size:2.5rem;
-
 }
 
 .grey-img{
@@ -126,4 +127,12 @@ img.logo {
   }
 
 
+}
+
+
+
+/* users page styling */
+
+thead tr th{
+  color:var(--dark-blue) !important
 }
