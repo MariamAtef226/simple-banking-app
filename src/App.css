@@ -62,3 +62,68 @@ img.logo {
     color:white;
 
 }
+
+/* outer container styling */
+@media (min-width:767px){
+  .cont{
+    padding-left:280px; 
+    padding-right:0;
+  }
+  
+}
+
+/* home page styling */
+
+.home h1{
+  color:var(--dark-blue);
+  font-size:2.5rem;
+
+}
+
+.grey-img{
+    filter: invert(50%) grayscale(50%);
+}
+
+.slogan, .info{
+  font-size:1rem;
+  font-weight: bold;
+  color:var(--dark-blue);
+  text-align: center;
+}
+.bank-img{
+  width:90%
+}
+
+.info-icon{
+  font-size: 5.5rem;
+  color:var(--dark-blue)
+}
+
+.info{
+  width:80%;
+  margin:0 auto;
+}
+
+@media (min-width:767px){
+
+  .home h1{
+    font-size:4.7rem;
+  }
+  .slogan, .info{
+    font-size: 1.2rem;
+  }
+  .bank-img{
+    width: 70%;
+  }
+
+  .info-icon{
+    font-size: 8.5rem;
+  }
+  
+  .info{
+    width:60%;
+    margin:0 auto;
+  }
+
+
+}

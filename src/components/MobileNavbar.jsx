@@ -16,7 +16,7 @@ export function MobileNavbar() {
   return (
     <>
       <div className="d-md-none mob-navbar pt-3 pb-3 ps-1 pe-1 navbar sticky-top">
-        <div className="d-flex justify-content-between align-items-center ">
+        <div className="d-flex justify-content-evenly align-items-center w-100 ">
           
           <div className="justify-content-center fs-3 fw-bold text-light d-flex align-items-center">
             <img src={logo} alt="logo" className='logo' width="40" />
