@@ -136,3 +136,24 @@ h1{
 thead tr th{
   color:var(--dark-blue) !important
 }
+
+table a{
+  color:var(--dark-blue);
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.15s ease-in;
+}
+
+table a:hover{
+  color:var(--mid-blue)
+}
+
+.trans-btn{
+  background-color: var(--dark-blue);
+  color:aliceblue;
+}
+
+.trans-btn:hover{
+  background-color: aliceblue;
+  color:var(--dark-blue);
+}

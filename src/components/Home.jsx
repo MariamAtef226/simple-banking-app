@@ -24,7 +24,6 @@ export default function Home() {
         <div className="info-container">
           <div className="info d-flex align-items-center pt-4 pb-4">
             <div className="pe-4">
-              {" "}
               Carry out infinite transactions between registered users, quickly
               and easily!
             </div>
@@ -33,16 +32,14 @@ export default function Home() {
 
           <div className="info d-flex flex-row-reverse align-items-center  pt-4 pb-4">
             <div className="ps-4">
-              Carry out infinite transactions between registered users, quickly
-              and easily!
+              Track your users current balances in a clear and organised way!
             </div>
             <FontAwesomeIcon icon={faCheck} className="info-icon" />
           </div>
 
           <div className="info d-flex align-items-center  pt-4 pb-4">
             <div className="pe-4">
-              Carry out infinite transactions between registered users, quickly
-              and easily!
+              Monitor your transactions history in detail and in a simple way!
             </div>
             <FontAwesomeIcon icon={faCalendarDays} className="info-icon" />
           </div>

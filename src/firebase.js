@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs } from "firebase/firestore"
+import { getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore"
 
 
 // Your web app's Firebase configuration
@@ -21,6 +21,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app)
 const usersCollection = collection(db, "users")
+const transactionsCollection = collection(db, "transactions")
 
 export async function getAllUsers() {
   const snapshot = await getDocs(usersCollection);
@@ -35,3 +36,45 @@ export async function getAllUsers() {
   }))
   return dataArr
 };
+
+
+export async function getAllTransactions() {
+  const snapshot = await getDocs(transactionsCollection);
+  if (snapshot.empty) {
+    throw {
+      message: "Failed to load transactions history!"
+    }
+  }
+
+  
+  const dataArr = await Promise.all(snapshot.docs.map(async (d) => {
+    let data = { ...d.data() };
+    let fromRef = doc(db, "users", data.from);
+    let toRef = doc(db, "users", data.to);
+
+    // Use Promise.all to parallelize the async calls for fromName and toName
+    const [fromName, toName] = await Promise.all([
+      getDoc(fromRef),
+      getDoc(toRef)
+    ]);
+
+    let date = new Date(data.date.toDate()); // Convert Firestore timestamp to JavaScript Date
+
+    return ({
+      date: date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }),
+      from: fromName.data().name,
+      to: toName.data().name,
+      value:data.value
+    });
+  }));
+
+  console.log(dataArr)
+  return dataArr;
+}
