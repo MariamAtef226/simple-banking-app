@@ -157,3 +157,28 @@ table a:hover{
   background-color: aliceblue;
   color:var(--dark-blue);
 }
+
+
+/* user page styling*/
+
+.user  h1{
+  font-size: 3.5rem;
+}
+
+.user-info{
+  font-size: 1rem;
+}
+
+.user-info .title{
+  color: var(--dark-blue);
+  font-weight: bold;
+}
+
+@media (min-width:767px){
+  .user-info{
+    font-size: 1.4rem;
+  }
+  .user h1{
+    font-size: 5rem;
+  }
+}

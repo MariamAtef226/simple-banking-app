@@ -12,7 +12,7 @@ import { NavLink, useMatch } from "react-router-dom";
 
 export function MobileNavbar() {
   const isActive = useMatch(":activeLink");
-
+  const isActiveUser = useMatch("/users/:id");
   return (
     <>
       <div className="d-md-none mob-navbar pt-3 pb-3 ps-1 pe-1 navbar sticky-top">
@@ -27,7 +27,7 @@ export function MobileNavbar() {
             <li className="nav-item ms-2 mb-2 mt-2">
               <NavLink
                 to="/"
-                className={`p-2  ${!isActive ? "my-link" : null}`}
+                className={`p-2  ${!isActive && !isActiveUser ? "my-link" : null}`}
               >
                 <FontAwesomeIcon icon={faHouse}  className='ps-1 pe-1'/>
               </NavLink>
@@ -38,10 +38,10 @@ export function MobileNavbar() {
                 to="/users"
                 className={`p-2   ${
                   isActive
-                    ? isActive.pathname == "/users"
+                    ? (isActive.pathname == "/users")
                       ? "my-link"
                       : null
-                    : null
+                    : isActiveUser? "my-link":null
                 }`}
               >
                 <FontAwesomeIcon icon={faUser} className='ps-1 pe-1' />

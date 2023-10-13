@@ -12,6 +12,7 @@ import { NavLink, useMatch } from "react-router-dom";
 
 export function Sidebar() {
   const isActive = useMatch(":activeLink");
+  const isActiveUser = useMatch("/users/:id");
 
   return (
     <>
@@ -28,7 +29,7 @@ export function Sidebar() {
               <li className="nav-item ms-2 mb-2 mt-2">
                 <NavLink
                   to="/"
-                  className={`p-2  ${!isActive ? "my-link" : null}`}
+                  className={`p-2  ${!isActive && !isActiveUser ? "my-link" : null}`}
                 >
                   <FontAwesomeIcon icon={faHouse} className="pe-2" />
                   Home
@@ -40,10 +41,10 @@ export function Sidebar() {
                   to="/users"
                   className={`p-2   ${
                     isActive
-                      ? isActive.pathname == "/users"
+                      ? (isActive.pathname == "/users")
                         ? "my-link"
                         : null
-                      : null
+                      : isActiveUser? "my-link":null
                   }`}
                 >
                   <FontAwesomeIcon icon={faUser} className="pe-2" />

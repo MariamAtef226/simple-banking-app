@@ -46,7 +46,7 @@ export async function getAllTransactions() {
     }
   }
 
-  
+
   const dataArr = await Promise.all(snapshot.docs.map(async (d) => {
     let data = { ...d.data() };
     let fromRef = doc(db, "users", data.from);
@@ -71,10 +71,27 @@ export async function getAllTransactions() {
       }),
       from: fromName.data().name,
       to: toName.data().name,
-      value:data.value
+      value: data.value
     });
   }));
 
-  console.log(dataArr)
   return dataArr;
+}
+
+export async function getUser(id) {
+  let docRef = doc(db, "users", id);
+  const snapshot = await getDoc(docRef);
+  if (snapshot.empty) {
+    throw {
+      message: "Failed to load user!"
+    }
+  }
+
+
+  return ({
+    ...snapshot.data(),
+    id: snapshot.id
+  });
+
+
 }
