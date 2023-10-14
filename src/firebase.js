@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore"
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, addDoc, Timestamp } from "firebase/firestore"
 
 
 // Your web app's Firebase configuration
@@ -18,8 +18,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const db = getFirestore(app)
-const usersCollection = collection(db, "users")
+export const db = getFirestore(app)
+export const usersCollection = collection(db, "users")
 const transactionsCollection = collection(db, "transactions")
 
 
@@ -38,8 +38,13 @@ export async function getAllUsers() {
 }
 
 
-export async function getAllTransactions() {
-  const snapshot = await getDocs(transactionsCollection);
+export async function getAllTransactions(page) {
+  // const baseQuery = query(transactionsCollection, orderBy('date'), limit(5));
+  // if (page > 1) {
+  //   const lastVisibleDoc = getLastVisibleDocForPage(page - 1); // Implement this function
+  //   baseQuery = query(baseQuery, startAfter(lastVisibleDoc));
+  // }
+  const snapshot = await getDocs(baseQuery);
   if (snapshot.empty) {
     throw {
       message: "Failed to load transactions history!"
@@ -73,6 +78,7 @@ export async function getAllTransactions() {
       value: data.value
     });
   }));
+  dataArr.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return dataArr;
 }
@@ -94,3 +100,69 @@ export async function getUser(id) {
 
 
 }
+
+
+export async function decreaseBalance(id, value) {
+  try {
+    const docRef = doc(db, "users", id);
+    const snapshot = await getDoc(docRef);
+    if (snapshot.empty) {
+      throw {
+        message: "Failed to load source's data!"
+      }
+    }
+
+    let source = {
+      ...snapshot.data(),
+      id: snapshot.id
+    };
+    await setDoc(docRef, { balance: Number(source.balance) - Number(value) }, { merge: true })
+  }
+  catch (err) {
+    console.log("Error in decreaseing balance!")
+    console.error(err)
+  }
+}
+
+
+export async function increaseBalance(id, value) {
+  try {
+    const docRef = doc(db, "users", id);
+    const snapshot = await getDoc(docRef);
+    if (snapshot.empty) {
+      throw {
+        message: "Failed to load destination's data!"
+      }
+    }
+
+    let destination = {
+      ...snapshot.data(),
+      id: snapshot.id
+    };
+    await setDoc(docRef, { balance: Number(destination.balance) + Number(value) }, { merge: true })
+  }
+  catch (err) {
+    console.log("Error in increasing balance!")
+    console.error(err)
+  }
+}
+
+
+export async function makeTransaction(srcId, destId, value) {
+  try{
+  const currentTimestamp = Timestamp.now();
+  const transaction = {
+    from: srcId,
+    to: destId,
+    value: value,
+    date: currentTimestamp
+  };
+  let newTransactionAdded = await addDoc(transactionsCollection, transaction)
+}
+catch(err){
+  console.log('Failed to log transaction!');
+  console.error(err)
+}
+}
+
+

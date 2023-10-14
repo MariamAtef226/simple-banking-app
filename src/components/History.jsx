@@ -1,18 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getAllTransactions } from "./../firebase";
-import { Link } from "react-router-dom";
 
 export default function History() {
   let [transactions, setTransactions] = useState([]);
+  let [page, setPage] = useState(1)
 
   useEffect(function () {
     async function loadData() {
-      const data = await getAllTransactions();
+      const data = await getAllTransactions(page);
       setTransactions(data);
     }
     loadData();
-  }, []);
+  }, [page]);
 
   return (
     <>

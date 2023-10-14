@@ -4,21 +4,40 @@ import { useEffect, useState } from "react";
 import { getUser } from "../firebase";
 import Transaction from "./Transaction";
 
+import { db, usersCollection } from "../firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+
 export default function User() {
   let id = useParams().id;
   let [user, setUser] = useState(null);
-  let [transactionWindow, setTransactionWindow] = useState(false)
+  let [transactionWindow, setTransactionWindow] = useState(false);
 
   useEffect(function () {
+    // initial data loading
     async function loadData() {
       let data = await getUser(id);
       setUser(data);
     }
     loadData();
+
+    // Use onSnapshot to listen for real-time updates
+    const unsubscribe = onSnapshot(
+      usersCollection,
+      function (snapshot) {
+        const u = snapshot.docs.filter((doc) => {
+          return doc.id == id;
+        });
+
+        setUser(u[0].data());
+      }
+    );
+
+    // Cleanup the listener when the component unmounts
+    return () => unsubscribe();
   }, []);
 
-  function transactionMode(){
-    setTransactionWindow(prev => !prev)
+  function transactionMode() {
+    setTransactionWindow((prev) => !prev);
   }
 
   return (
@@ -44,13 +63,13 @@ export default function User() {
                 {user.balance}
               </div>
               <button className="btn trans-btn" onClick={transactionMode}>
-                {transactionWindow? "Close Form":"Make a Transaction"}</button>
+                {transactionWindow ? "Close Form" : "Make a Transaction"}
+              </button>
             </div>
-            {transactionWindow? <Transaction balance={user.balance}/>:null}
-            
-
+            {transactionWindow ? (
+              <Transaction balance={user.balance} id={id} />
+            ) : null}
           </div>
-
         )}
       </div>
     </>
