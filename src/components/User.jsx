@@ -2,10 +2,12 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUser } from "../firebase";
+import Transaction from "./Transaction";
 
 export default function User() {
   let id = useParams().id;
   let [user, setUser] = useState(null);
+  let [transactionWindow, setTransactionWindow] = useState(false)
 
   useEffect(function () {
     async function loadData() {
@@ -14,6 +16,10 @@ export default function User() {
     }
     loadData();
   }, []);
+
+  function transactionMode(){
+    setTransactionWindow(prev => !prev)
+  }
 
   return (
     <>
@@ -37,9 +43,14 @@ export default function User() {
                 <span className="title">Current Balance: </span>
                 {user.balance}
               </div>
-              <button className="btn trans-btn">Make a Transaction</button>{" "}
+              <button className="btn trans-btn" onClick={transactionMode}>
+                {transactionWindow? "Close Form":"Make a Transaction"}</button>
             </div>
+            {transactionWindow? <Transaction balance={user.balance}/>:null}
+            
+
           </div>
+
         )}
       </div>
     </>

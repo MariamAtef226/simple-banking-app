@@ -182,3 +182,10 @@ table a:hover{
     font-size: 5rem;
   }
 }
+
+
+/* transaction form */
+label{
+  color:var(--dark-blue);
+  font-weight: bold;
+}

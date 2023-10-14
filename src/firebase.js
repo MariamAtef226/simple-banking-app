@@ -5,7 +5,6 @@ import { getFirestore, collection, getDocs, doc, getDoc } from "firebase/firesto
 
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCyKnk0W-TlUSuRGVwssVmhl7N6dDNY044",
   authDomain: "solobanker-4e82b.firebaseapp.com",
@@ -23,6 +22,7 @@ const db = getFirestore(app)
 const usersCollection = collection(db, "users")
 const transactionsCollection = collection(db, "transactions")
 
+
 export async function getAllUsers() {
   const snapshot = await getDocs(usersCollection);
   if (snapshot.empty) {
@@ -35,7 +35,7 @@ export async function getAllUsers() {
     id: doc.id
   }))
   return dataArr
-};
+}
 
 
 export async function getAllTransactions() {
@@ -45,7 +45,6 @@ export async function getAllTransactions() {
       message: "Failed to load transactions history!"
     }
   }
-
 
   const dataArr = await Promise.all(snapshot.docs.map(async (d) => {
     let data = { ...d.data() };
@@ -78,6 +77,7 @@ export async function getAllTransactions() {
   return dataArr;
 }
 
+
 export async function getUser(id) {
   let docRef = doc(db, "users", id);
   const snapshot = await getDoc(docRef);
@@ -86,7 +86,6 @@ export async function getUser(id) {
       message: "Failed to load user!"
     }
   }
-
 
   return ({
     ...snapshot.data(),
