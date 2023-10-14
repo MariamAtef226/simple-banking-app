@@ -8,11 +8,11 @@ export default function History() {
 
   useEffect(function () {
     async function loadData() {
-      const data = await getAllTransactions(page);
+      const data = await getAllTransactions();
       setTransactions(data);
     }
     loadData();
-  }, [page]);
+  }, []);
 
   return (
     <>
