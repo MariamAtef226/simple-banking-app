@@ -30,7 +30,6 @@ export default function Users() {
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Balance</th>
-                {/* <th scope="col"></th> */}
               </tr>
             </thead>
             <tbody>
@@ -42,11 +41,6 @@ export default function Users() {
                       <Link to={el.id}>{el.name}</Link>
                     </td>
                     <td>{el.balance}</td>
-                    {/* <td>
-                      <button className="btn trans-btn">
-                        Make a Transaction
-                      </button>
-                    </td> */}
                   </tr>
                 );
               })}

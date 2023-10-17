@@ -39,11 +39,7 @@ export async function getAllUsers() {
 
 
 export async function getAllTransactions(page) {
-  // const baseQuery = query(transactionsCollection, orderBy('date'), limit(5));
-  // if (page > 1) {
-  //    const lastVisibleDoc = getLastVisibleDocForPage(page - 1); // Implement this function
-  //    baseQuery = query(baseQuery, startAfter(lastVisibleDoc));
-  //  }
+
   const snapshot = await getDocs(baseQuery);
   if (snapshot.empty) {
     throw {
@@ -166,3 +162,8 @@ catch(err){
 }
 
 
+  // const baseQuery = query(transactionsCollection, orderBy('date'), limit(5));
+  // if (page > 1) {
+  //    const lastVisibleDoc = getLastVisibleDocForPage(page - 1); // Implement this function
+  //    baseQuery = query(baseQuery, startAfter(lastVisibleDoc));
+  //  }
