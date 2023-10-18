@@ -38,9 +38,9 @@ export async function getAllUsers() {
 }
 
 
-export async function getAllTransactions(page) {
+export async function getAllTransactions(age) {
 
-  const snapshot = await getDocs(baseQuery);
+  const snapshot = await getDocs(transactionsCollection);
   if (snapshot.empty) {
     throw {
       message: "Failed to load transactions history!"
